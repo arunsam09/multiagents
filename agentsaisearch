@@ -1,0 +1,40 @@
+from azure.ai.projects import AIProjectClient
+from azure.identity import DefaultAzureCredential
+
+project_client = AIProjectClient.from_connection_string(
+    credential=DefaultAzureCredential(),
+    conn_str="your_project_connection_string"
+)
+
+conn_list = project_client.connections._list_connections()["value"]
+conn_id = next(
+    (conn["id"] for conn in conn_list if conn["properties"].get("metadata", {}).get("type", "").upper() == "AZURE_AI_SEARCH"),
+    None
+)
+
+
+from azure.ai.projects.models import AzureAISearchTool
+
+ai_search_tool = AzureAISearchTool(
+    index_connection_id=conn_id,
+    index_name="your_index_name",
+    query_type="Hybrid"
+)
+
+
+gent = project_client.agents.create_agent(
+    model="your_model_name",
+    name="your_agent_name",
+    instructions="Your instructions here",
+    tools=ai_search_tool.definitions,
+    tool_resources=ai_search_tool.resources
+)
+
+
+thread = project_client.agents.create_thread()
+message = project_client.agents.create_message(
+    thread_id=thread.id,
+    role="user",
+    content="Your query here"
+)
+run = project_client.agents.create_and_process_run(thread_id=thread.id, assistant_id=agent.id)
