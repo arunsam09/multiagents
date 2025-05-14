@@ -1,0 +1,43 @@
+# ✈️ TravelMate – AI Travel Booking Agent with Semantic Kernel & OpenAI
+
+**TravelMate** is an interactive AI assistant that helps users explore and book travel packages. Built with OpenAI LLM, it supports wallet balance checking, viewing available packages, and booking trips conversationally.
+
+---
+
+## 🌍 Features
+
+- 🤖 AI chat using OpenAI
+- 🧩 Custom Semantic Kernel Plugin (`TravelAgentPlugin`)
+- 💼 Wallet balance validation
+- 🌴 Browse and book curated travel packages
+
+
+---
+
+1. Clone the Repo
+
+git clone https://github.com/yourusername/travelmate-ai.git
+cd travelmate-ai
+
+
+Install Dependencies
+
+pip install semantic-kernel
+
+
+Set Your Gemini API Key
+Update your script with your OpenAI API key:
+
+api_key="Your-OpenAI api key"
+
+
+python travelmate.py
+
+
+Example interactions:
+
+Enter your message >>> Show me available travel packages
+Enter your message >>> Check my wallet
+
+
+Type q to exit.
